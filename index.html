@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz app</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(10deg, #0e0f19, #000000);
+      }
+
+     .option:has(input[type="radio"]:checked).show {
+        background-color: #21243d63;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #7d92f046;
+      } 
+      .option:has(input[type="radio"]).wrong {
+        background-color: transparent;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #fd000046;
+      }
+      .option:has(input[type="radio"]):hover {
+        transition: all 0.2s linear;
+        transform: translateX(2px);
+        cursor: pointer;
+      }
+      .multi_q, .questions {
+        opacity: 0;
+        
+        /* transform: translateX(-100%); */
+        animation: fadeIn .5s linear forwards;
+        transition: all .3s ease;
+      }
+
+      
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          filter: blur(15px);
+          transform: translateY(20px);
+        }
+        
+        25% {
+          opacity: 0.3;
+          filter: blur(10px);
+          transform: translateY(15);
+        }
+        50% {
+          opacity: 0.6;
+          filter: blur(5px);
+          transform: translateY(10);
+        }
+        
+        75% {
+          opacity: 0.8;
+          filter: blur(2px);
+          transform: translateY(5px);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+      }
+      .loading{
+        background-color: wheat;
+        border-radius: 10px;
+        overflow: clip;
+      }
+      .loading::after{
+        content: "";
+        position: absolute;
+        z-index: 2000;
+        border-radius: inherit;
+        left: 0;
+        bottom: 0;
+        /* top: 0; */
+        height: inherit;
+        transition: width 0.3s linear;
+        width: var(--progress-width, 0);
+        background-color: rgb(53, 23, 2);
+      }
+    </style>
+  </head>
+  <body class="flex flex-col gap-19 justify-center items-center min-h-[100vh]">
+    <div
+      id="container"
+      class="container max-w-[310px] m-auto border-[1px] border-solid border-[#474F7A] p-4 rounded-xl"
+    >
+      <div id="header_t"
+        class="flex flex-col gap-3 justify-center text-center question_section py-10 shadow-[4px_2px_10px_rgba(0,0,0,0.12)] px-2 bg-gradient-to-br from-[#3b1c328e] to-[#1a1a1db0] rounded-xl"
+      >
+        <h1 id="questionId" class="font-bold text-white text-2xl">
+          Questions <span class="text-[#FFB4B4]" id="questionNo">01</span>
+        </h1>
+        <p class="font-light text-[12px] text-white">some pop quiz</p>
+        <div id="loading" class="loading relative w-[80%] h-[8px] bg-white m-auto">
+          <!-- <div class="absolute left-0 top-0 bottom-0 right-0 h-full  w-[60%] bg-red-400 rounded-xl"></div> -->
+        </div>
+        
+        <p id="questions" class="font-bold text-white">
+          
+        </p>
+      </div>
+      <div id="form_que">
+      </div>
+
+      <div id="buttons" class="mt-6 flex justify-between">
+        <button
+          class="bg-[#2B2730] py-1 px-2 rounded-[5px] cursor-pointer text-white"
+          onclick="prevQuestion()"
+        >
+        Prev
+        </button>
+        <button
+          id="nextBtn"
+          class="bg-[#2B2730] py-1 px-2 rounded-[5px] cursor-pointer text-white"
+          onclick="nextQuestion()"
+          
+        >
+          Next
+        </button>
+        <button
+        id="submitBtn"
+          class="bg-[#2B2730] hidden py-1 px-2 rounded-[5px] cursor-pointer text-white"
+          onclick="submitAndDis()"
+          
+        >
+          Submit
+        </button>
+        <button
+        id="restart"
+          class="bg-[#2B2730] hidden py-1 px-2 rounded-[5px] cursor-pointer text-white"
+          onclick="restartQuiz()"
+          
+        >
+          Restart Quiz
+        </button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
