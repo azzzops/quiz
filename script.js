@@ -107,7 +107,7 @@ function loadQuestion() {
               (t) => `
             <label class="show option flex text-white justify-between items-center text-[18px] border-[1px] border-solid border-white p-2 rounded-full">
                 <span>${t}</span>
-                <input type="radio" name="answer" onclick="selectValue()" value="${t}" ${
+                <input type="radio" name="answer" onclick="selectedInpt[${0 + index}]='${t}'"  value="${t}" ${
                 selectedInpt[0 + index] === t ? "checked" : ""
               }/>
             </label>
@@ -135,7 +135,7 @@ function loadQuestion() {
                   : ""
               }">
                 <span>${t}</span>
-                <input type="radio" name="answer" class="" onclick="selectValue()" value="${t}" ${
+                <input type="radio" name="answer" class="" onclick="selectedInpt[${0 + index}]='${t}'"  value="${t}" ${
                 selectedInpt[0 + index] === t ? "checked" : ""
               } disabled />
             </label>
@@ -145,15 +145,6 @@ function loadQuestion() {
             
         </form>`;
   }
-}
-
-function selectValue() {
-  let form = document.getElementById("multi_q");
-  form.addEventListener("change", (e) => {
-    if (e.target.checked) {
-      selectedInpt[0 + index] = e.target.value;
-    }
-  });
 }
 
 function prevQuestion() {
